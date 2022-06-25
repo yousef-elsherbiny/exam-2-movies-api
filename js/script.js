@@ -20,6 +20,16 @@ $(document).ready(function() {
     })
     ele.html('<i class="fa-solid fa-xmark fa-xl"></i>')
   }
+
+  function overlayControl() {
+    $('#content .movie').mouseenter(function() {
+      $(this).find('.overlay').animate({'top': '0'}, 800)
+    })
+    
+    $('#content .movie').mouseleave(function() {
+      $(this).find('.overlay').animate({'top': '100%'}, 800)
+    })
+  }
   
   $('#door-icon').click(function() {
     if($('#header').css('left') == '0px') closeHeader($(this))
@@ -33,13 +43,11 @@ $(document).ready(function() {
     getMoviesDetials()
   })
 
-  async function getApiData(target, search) {
+  async function getApiData(target) {
     const apiKey = 'eba8b9a7199efdcb0ca1f96879b83c44';
     let apiWithTarget = ''
     if(target == 'trending') {
       apiWithTarget = `https://api.themoviedb.org/3/trending/all/day?api_key=${apiKey}`
-    } else if(target == 'api_search') {
-      apiTarget = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${search}`
     } else {
       apiWithTarget = `https://api.themoviedb.org/3/movie/${target}?api_key=${apiKey}`
     }
@@ -82,30 +90,29 @@ $(document).ready(function() {
     searchMoviesHere($(this).val())
   })
   
-  function searchMoviesApi(val) {
-    getApiData('api_search', val).then(function(movies) {
+  async function searchMoviesApi(val) {
+    if(val == '') {
       $('#movies').empty()
-      console.log(movies)
-      appendMovies(movies)
-    })
+      getMoviesDetials()
+    }
+    else {
+      let moviesAPI = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=eba8b9a7199efdcb0ca1f96879b83c44&query=${val}`)
+      let moviesJSON = await moviesAPI.json()
+      $('#movies').empty()
+      appendMovies(moviesJSON.results)
+    }
   }
 
   $('#search-api').keyup(function() {
-    searchMoviesApi($(this).val())
+    searchMoviesApi($(this).val()).then(function() {
+      overlayControl()
+    })
   })
 
-  async function getMoviesDetials() {
+  function getMoviesDetials() {
     getApiData(apiTarget).then(function(movies) {
-      
       appendMovies(movies)
-      
-      $('#content .movie').mouseenter(function() {
-        $(this).find('.overlay').animate({'top': '0'}, 800)
-      })
-      
-      $('#content .movie').mouseleave(function() {
-        $(this).find('.overlay').animate({'top': '100%'}, 800)
-      })
+      overlayControl()
     })
   }
 
