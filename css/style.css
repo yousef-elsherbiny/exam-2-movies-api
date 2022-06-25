@@ -1,0 +1,87 @@
+body {
+  background-color: #0D0D0D;
+}
+.search-inp {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,.7);
+  padding: 5px;
+  color: #fff;
+  margin-top: 50px;
+}
+.search-inp:focus {
+  box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
+  outline: 0;
+}
+.search-inp::placeholder {
+  text-align: center;
+}
+/* beginning of header style */
+#header {
+  left: -250px;
+  z-index: 10;
+}
+#header .context {
+  width: 250px;
+  height: 100vh;
+  padding-left: 30px;
+}
+#header .context .nav {
+  padding-top: 22px;
+  height: 300px;
+  overflow: hidden;
+}
+#header .context .nav-item {
+  margin-bottom: 22px;
+  position: relative;
+  top: 100%;
+}
+#header .context .nav-link {
+  color: #fff;
+  transition: .3s;
+  font-weight: 300;
+  padding: 0;
+}
+#header .context .nav-link:hover {
+  color: #ff655c;
+}
+#header .context .social {
+  margin-bottom: 110px;
+}
+#header .context .social i {
+  margin-right: 17px;
+}
+#header .menu-door {
+  background-color: #fff;
+}
+#header .menu-door #door-icon {
+  cursor: pointer;
+}
+/* Beginning of header style */
+
+/* Beginning of content style */
+
+#content .movie {
+  position: relative;
+  overflow: hidden;
+  border-radius: 5px;
+}
+#content .overlay {
+  position: absolute;
+  top: 100%;
+  color: #000;
+  background-color: rgba(255,255,255,.7);
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  padding-top: 150px;
+  font-family: 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
+}
+#content .overlay h2 {
+  font-weight: 500;
+}
+#content .overlay p, #content .overlay div {
+  font-weight: 800;
+}
+/* End of content style */
